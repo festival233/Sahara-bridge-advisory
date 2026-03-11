@@ -66,3 +66,18 @@ document.querySelectorAll('[data-company-email]').forEach((el) => {
     el.setAttribute('href', `mailto:${config.companyEmail}`);
   }
 });
+
+const GOOGLE_TRANSLATE_COOKIE_TTL = 31536000;
+
+const setGoogleTranslateCookie = (langCode) => {
+  document.cookie = `googtrans=/en/${langCode}; path=/; max-age=${GOOGLE_TRANSLATE_COOKIE_TTL}`;
+  document.cookie = `googtrans=/en/${langCode}; domain=${location.hostname}; path=/; max-age=${GOOGLE_TRANSLATE_COOKIE_TTL}`;
+};
+
+document.querySelectorAll('.lang-chip').forEach((chip) => {
+  chip.addEventListener('click', (event) => {
+    event.preventDefault();
+    setGoogleTranslateCookie('ar');
+    location.reload();
+  });
+});
