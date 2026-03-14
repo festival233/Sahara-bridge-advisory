@@ -15,19 +15,23 @@ if (form && statusEl) {
       return;
     }
 
-    if (config.formEndpoint) {
+    if (config.cloudflareWorkerEndpoint) {
       try {
-        const response = await fetch(config.formEndpoint, {
+        const response = await fetch(config.cloudflareWorkerEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
-        if (!response.ok) throw new Error('Request failed');
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
         form.reset();
         statusEl.textContent = 'Your inquiry has been sent. Sahara Bridge Advisory will respond shortly.';
         statusEl.className = 'form-status success';
       } catch (error) {
-        statusEl.textContent = 'Your form endpoint rejected the request. Update assets/js/config.js or use email / WhatsApp below.';
+        statusEl.textContent = 'Submission failed. Please email saharabridgeadvisory@gmail.com directly while we restore service.';
         statusEl.className = 'form-status error';
       }
       return;
@@ -35,9 +39,18 @@ if (form && statusEl) {
 
     const subject = encodeURIComponent(`Sahara Bridge Inquiry — ${data.service}`);
     const body = encodeURIComponent(
-      `Name: ${data.name}\nCompany: ${data.company || ''}\nEmail: ${data.email}\nPhone: ${data.phone || ''}\nService: ${data.service}\nBudget: ${data.budget || ''}\nMarkets: ${data.markets || ''}\n\nMessage:\n${data.message}`
+      `Name: ${data.name}
+Company: ${data.company || ''}
+Email: ${data.email}
+Phone: ${data.phone || ''}
+Service: ${data.service}
+Budget: ${data.budget || ''}
+Markets: ${data.markets || ''}
+
+Message:
+${data.message}`
     );
-    window.location.href = `mailto:${config.companyEmail || 'hello@saharabridgeadvisory.com'}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${config.companyEmail || 'saharabridgeadvisory@gmail.com'}?subject=${subject}&body=${body}`;
     statusEl.textContent = 'Opening your email client now. For direct outreach, use the WhatsApp and booking links.';
     statusEl.className = 'form-status success';
   });

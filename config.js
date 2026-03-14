@@ -1,5 +1,5 @@
 window.SaharaBridgeConfig = {
-  companyEmail: "hello@saharabridgeadvisory.com",
+  companyEmail: "saharabridgeadvisory@gmail.com",
   whatsappLink: "https://wa.me/13473914312",
   calendlyLink: "https://calendly.com/your-link",
   formEndpoint: "",

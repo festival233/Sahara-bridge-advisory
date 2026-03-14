@@ -47,7 +47,7 @@ Documents: ${data.documents || ''}
 
 Mandate summary:
 ${data.message}`);
-    window.location.href = `mailto:${config.companyEmail || 'hello@saharabridgeadvisory.com'}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${config.companyEmail || 'saharabridgeadvisory@gmail.com'}?subject=${subject}&body=${body}`;
     intakeStatus.textContent = 'Opening your email client with the intake summary.';
     intakeStatus.className = 'form-status success';
   });
