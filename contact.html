@@ -54,7 +54,7 @@
         <aside class="grid">
           <article class="info-card reveal">
             <h3>Email</h3>
-            <p><a data-company-email href="mailto:hello@saharabridgeadvisory.com">hello@saharabridgeadvisory.com</a></p>
+            <p><a data-company-email href="mailto:saharabridgeadvisory@gmail.com">saharabridgeadvisory@gmail.com</a></p>
           </article>
           <article class="info-card reveal">
             <h3>WhatsApp</h3>
@@ -136,10 +136,15 @@
               <label for="message">Tell us about the opportunity or issue *</label>
               <textarea id="message" name="message" required placeholder="What are you trying to do, what is the product or project, and where are the risk or trust issues?"></textarea>
             </div>
+            <div style="position:absolute;left:-10000px;opacity:0;pointer-events:none;" aria-hidden="true">
+              <label for="website">Leave this field empty</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
             <div class="form-actions">
               <button class="btn btn-primary" type="submit">Send Inquiry</button>
-              <a class="btn btn-secondary" href="mailto:hello@saharabridgeadvisory.com">Email Directly</a>
-              <span class="form-status" data-form-status>WhatsApp and LinkedIn are already connected. You can still update assets/js/config.js for Calendly or a live form endpoint.</span>
+              <a class="btn btn-secondary" href="mailto:saharabridgeadvisory@gmail.com">Email Directly</a>
+              <span class="form-status" data-form-status>This form is wired for a secure Cloudflare Worker → Gmail flow. Set <code>cloudflareWorkerEndpoint</code> in <code>assets/js/config.js</code>.</span>
             </div>
           </form>
         </section>
@@ -150,12 +155,12 @@
       <div class="container grid grid-3">
         <article class="process-card reveal"><h3>Calendly-ready</h3><p>The code already includes a placeholder for your booking link in <code>assets/js/config.js</code>.</p></article>
         <article class="process-card reveal"><h3>WhatsApp-ready</h3><p>Update the WhatsApp link once and use it across buttons or future floating chat components.</p></article>
-        <article class="process-card reveal"><h3>Form-endpoint ready</h3><p>You can connect Formspree, Basin, Web3Forms, or your own backend without changing the page layout.</p></article>
+        <article class="process-card reveal"><h3>Cloudflare Worker ready</h3><p>Connect this form directly to a Cloudflare Worker that sends inquiries to Gmail with no third-party branding.</p></article>
       </div>
     </section>
   <section class="section section-sm"><div class="container panel" style="padding:1.6rem;"><span class="eyebrow">For serious mandates</span><h2 style="margin-top:1rem;">Need a cleaner handoff than a basic message?</h2><p>Use the structured intake page for research, verification, travel support, gold, timber, coconuts, baobab, fire-cured tobacco, and sun-dried tobacco mandates.</p><div class="hero-actions" style="margin-top:1rem;"><a class="btn btn-primary" href="intake.html">Complete Client Intake</a><a class="btn btn-ghost" href="insights.html">Download Private Briefs</a></div></div></section></main>
 
-  <footer class="footer"><div class="container"><div class="footer-grid"><div><div class="brand" style="margin-bottom:1rem;"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 22C10.8 16.7 14.7 13.8 18.6 11.5C22.1 9.4 24.9 6.9 26.4 3C29 7.1 30.1 10.6 30.1 14.5C30.1 21.6 24.4 27.3 17.3 27.3C13.4 27.3 10.5 25.8 8 22Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 20C15.2 19.6 17.9 20.5 20.3 22.2" stroke="#F5E2A0" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><strong class="brand-name">Sahara Bridge Advisory</strong><span class="brand-tag">Private inquiries</span></span></div><p>Use this page for premium mandates, partner verification, research, and strategic travel support.</p></div><div><h4>Go to</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="verification.html">Verification</a></li></ul></div><div><h4>Requests</h4><ul><li>Research</li><li>Verification</li><li>Travel support</li><li>Market entry</li></ul></div><div><h4>Email</h4><ul><li><a href="mailto:hello@saharabridgeadvisory.com">hello@saharabridgeadvisory.com</a></li><li><a href="mailto:hello@saharabridgeadvisory.com">Request a callback</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 Sahara Bridge Advisory.</span><span>Good websites do not just look nice. They close.</span></div></div></footer>
+  <footer class="footer"><div class="container"><div class="footer-grid"><div><div class="brand" style="margin-bottom:1rem;"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 22C10.8 16.7 14.7 13.8 18.6 11.5C22.1 9.4 24.9 6.9 26.4 3C29 7.1 30.1 10.6 30.1 14.5C30.1 21.6 24.4 27.3 17.3 27.3C13.4 27.3 10.5 25.8 8 22Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 20C15.2 19.6 17.9 20.5 20.3 22.2" stroke="#F5E2A0" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><strong class="brand-name">Sahara Bridge Advisory</strong><span class="brand-tag">Private inquiries</span></span></div><p>Use this page for premium mandates, partner verification, research, and strategic travel support.</p></div><div><h4>Go to</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="verification.html">Verification</a></li></ul></div><div><h4>Requests</h4><ul><li>Research</li><li>Verification</li><li>Travel support</li><li>Market entry</li></ul></div><div><h4>Email</h4><ul><li><a href="mailto:saharabridgeadvisory@gmail.com">saharabridgeadvisory@gmail.com</a></li><li><a href="mailto:saharabridgeadvisory@gmail.com">Request a callback</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 Sahara Bridge Advisory.</span><span>Good websites do not just look nice. They close.</span></div></div></footer>
 
   <div class="quick-actions">
     <a class="quick-action" data-whatsapp-link href="https://wa.me/13473914312" target="_blank" rel="noopener noreferrer">

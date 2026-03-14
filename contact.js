@@ -37,7 +37,7 @@ if (form && statusEl) {
     const body = encodeURIComponent(
       `Name: ${data.name}\nCompany: ${data.company || ''}\nEmail: ${data.email}\nPhone: ${data.phone || ''}\nService: ${data.service}\nBudget: ${data.budget || ''}\nMarkets: ${data.markets || ''}\n\nMessage:\n${data.message}`
     );
-    window.location.href = `mailto:${config.companyEmail || 'hello@saharabridgeadvisory.com'}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${config.companyEmail || 'saharabridgeadvisory@gmail.com'}?subject=${subject}&body=${body}`;
     statusEl.textContent = 'Opening your email client now. For direct outreach, use the WhatsApp and booking links.';
     statusEl.className = 'form-status success';
   });
