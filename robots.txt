@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+# Public pages are crawlable.
 Sitemap: https://saharabridgeadvisory.com/sitemap.xml
