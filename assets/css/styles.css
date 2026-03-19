@@ -611,6 +611,25 @@ input:focus, select:focus, textarea:focus {
   gap: 1.4rem;
   margin-top: 1.8rem;
 }
+.hero-top-lanes {
+  display: grid;
+  align-content: start;
+}
+.top-lanes-grid {
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 0.95rem;
+}
+.top-lanes-grid .service-lane {
+  padding: 1rem;
+}
+.top-lanes-grid .service-lane h3 {
+  font-size: 1.03rem;
+}
+.top-lanes-grid .service-lane p {
+  color: var(--muted);
+  margin: 0;
+}
 .hero-brief, .hero-mandate, .insight-card, .sector-tile, .service-lane, .credibility-band, .region-card {
   background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.028));
   border: 1px solid rgba(255,255,255,0.09);
@@ -670,6 +689,7 @@ input:focus, select:focus, textarea:focus {
 @media (max-width: 980px) {
   .hero-consult-grid, .split-callout, .sector-grid, .region-grid, .credibility-band { grid-template-columns: 1fr; }
   .hero-kicker { grid-template-columns: 1fr; }
+  .top-lanes-grid { grid-template-columns: 1fr; }
 }
 
 .lang-chip {
