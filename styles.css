@@ -641,6 +641,14 @@ input:focus, select:focus, textarea:focus {
   margin-top: 1.15rem; padding: 0.95rem 1.1rem; border-radius: 18px; background: rgba(45,91,120,0.18); border: 1px solid rgba(111,168,191,0.20); color:#d9e8f4;
 }
 .split-callout { display:grid; grid-template-columns: 1.04fr 0.96fr; gap:1.2rem; }
+.overview-panel {
+  padding: 1.25rem;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.overview-panel .grid { gap: 0.95rem; }
+.overview-panel .section-head { margin-bottom: 1rem; }
 .sector-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1.1rem; }
 .sector-tile, .service-lane, .insight-card, .region-card { padding: 1.25rem; }
 .sector-tile h3, .service-lane h3, .region-card h3 { margin-top:0; margin-bottom:0.55rem; }
