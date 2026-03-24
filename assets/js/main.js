@@ -74,10 +74,53 @@ const setGoogleTranslateCookie = (langCode) => {
   document.cookie = `googtrans=/en/${langCode}; domain=${location.hostname}; path=/; max-age=${GOOGLE_TRANSLATE_COOKIE_TTL}`;
 };
 
+const clearGoogleTranslateCookie = () => {
+  document.cookie = 'googtrans=; path=/; max-age=0';
+  document.cookie = `googtrans=; domain=${location.hostname}; path=/; max-age=0`;
+};
+
+const getCurrentLanguage = () => {
+  const cookie = document.cookie
+    .split('; ')
+    .find((entry) => entry.startsWith('googtrans='));
+
+  if (!cookie) return 'en';
+  const value = decodeURIComponent(cookie.split('=')[1] || '');
+  const parts = value.split('/');
+  return parts[2] || 'en';
+};
+
+const languageOptions = [
+  { value: 'en', label: 'English' },
+  { value: 'ar', label: 'العربية' },
+  { value: 'de', label: 'Deutsch' },
+  { value: 'fr', label: 'Français' }
+];
+
 document.querySelectorAll('.lang-chip').forEach((chip) => {
-  chip.addEventListener('click', (event) => {
-    event.preventDefault();
-    setGoogleTranslateCookie('ar');
+  const select = document.createElement('select');
+  select.className = 'lang-chip lang-select';
+  select.setAttribute('aria-label', 'Select site language');
+
+  languageOptions.forEach((optionData) => {
+    const option = document.createElement('option');
+    option.value = optionData.value;
+    option.textContent = optionData.label;
+    select.appendChild(option);
+  });
+
+  const currentLanguage = getCurrentLanguage();
+  select.value = languageOptions.some((item) => item.value === currentLanguage) ? currentLanguage : 'en';
+
+  select.addEventListener('change', (event) => {
+    const nextLanguage = event.target.value;
+    if (nextLanguage === 'en') {
+      clearGoogleTranslateCookie();
+    } else {
+      setGoogleTranslateCookie(nextLanguage);
+    }
     location.reload();
   });
+
+  chip.replaceWith(select);
 });
