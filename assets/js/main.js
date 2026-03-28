@@ -208,7 +208,30 @@ const languageOptions = [
   { value: 'fr', label: 'Français' }
 ];
 
-document.querySelectorAll('.lang-chip').forEach((chip) => {
+const bindLanguageSelect = (select) => {
+  const currentLanguage = getCurrentLanguage();
+  select.value = languageOptions.some((item) => item.value === currentLanguage) ? currentLanguage : 'en';
+
+  const onLanguageChange = (event) => {
+    const nextLanguage = event.target.value;
+    document.querySelectorAll('[data-language-select="true"]').forEach((control) => {
+      control.value = nextLanguage;
+    });
+    applyLanguage(nextLanguage);
+  };
+
+  select.addEventListener('change', onLanguageChange);
+  select.addEventListener('input', onLanguageChange);
+  ['touchstart', 'pointerdown', 'click'].forEach((eventName) => {
+    select.addEventListener(eventName, () => {
+      if (typeof select.showPicker === 'function') {
+        select.showPicker();
+      }
+    }, { passive: true });
+  });
+};
+
+const createLanguageSelect = () => {
   const select = document.createElement('select');
   select.className = 'lang-chip lang-select';
   select.setAttribute('aria-label', 'Select site language');
@@ -221,27 +244,28 @@ document.querySelectorAll('.lang-chip').forEach((chip) => {
     select.appendChild(option);
   });
 
-  const currentLanguage = getCurrentLanguage();
-  select.value = languageOptions.some((item) => item.value === currentLanguage) ? currentLanguage : 'en';
+  bindLanguageSelect(select);
+  return select;
+};
 
-  select.addEventListener('change', (event) => {
-    const nextLanguage = event.target.value;
-    applyLanguage(nextLanguage);
-  });
-  select.addEventListener('input', (event) => {
-    const nextLanguage = event.target.value;
-    applyLanguage(nextLanguage);
-  });
-  ['touchstart', 'pointerdown', 'click'].forEach((eventName) => {
-    select.addEventListener(eventName, () => {
-      if (typeof select.showPicker === 'function') {
-        select.showPicker();
-      }
-    }, { passive: true });
-  });
-
+document.querySelectorAll('.lang-chip').forEach((chip) => {
+  const select = createLanguageSelect();
   chip.replaceWith(select);
 });
+
+if (navLinks && !navLinks.querySelector('[data-mobile-language-control]')) {
+  const mobileLanguageControl = document.createElement('div');
+  mobileLanguageControl.className = 'mobile-language-control';
+  mobileLanguageControl.setAttribute('data-mobile-language-control', 'true');
+
+  const mobileLanguageLabel = document.createElement('span');
+  mobileLanguageLabel.className = 'mobile-language-label';
+  mobileLanguageLabel.textContent = 'Language';
+
+  const mobileLanguageSelect = createLanguageSelect();
+  mobileLanguageControl.append(mobileLanguageLabel, mobileLanguageSelect);
+  navLinks.prepend(mobileLanguageControl);
+}
 
 const languageFromCookie = getCurrentLanguage();
 if (languageFromCookie !== 'en') {
