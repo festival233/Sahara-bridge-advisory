@@ -70,6 +70,9 @@ document.querySelectorAll('[data-company-email]').forEach((el) => {
 const GOOGLE_TRANSLATE_COOKIE_TTL = 31536000;
 const GOOGLE_TRANSLATE_INIT_RETRIES = 30;
 const GOOGLE_TRANSLATE_INIT_DELAY = 150;
+const GOOGLE_TRANSLATE_APPLY_RETRIES = 20;
+const GOOGLE_TRANSLATE_APPLY_DELAY = 200;
+const GOOGLE_TRANSLATE_RETRY_ON_FAIL = 3;
 let googleTranslateInitPromise;
 
 const setGoogleTranslateCookie = (langCode) => {
@@ -136,7 +139,29 @@ const ensureGoogleTranslateLoaded = () => {
   return googleTranslateInitPromise;
 };
 
-const applyLanguage = async (langCode) => {
+const waitForTranslateCombo = () => new Promise((resolve, reject) => {
+  let attempts = 0;
+
+  const checkCombo = () => {
+    const combo = document.querySelector('.goog-te-combo');
+    if (combo) {
+      resolve(combo);
+      return;
+    }
+
+    attempts += 1;
+    if (attempts >= GOOGLE_TRANSLATE_APPLY_RETRIES) {
+      reject(new Error('Google Translate control not ready.'));
+      return;
+    }
+
+    setTimeout(checkCombo, GOOGLE_TRANSLATE_APPLY_DELAY);
+  };
+
+  checkCombo();
+});
+
+const applyLanguage = async (langCode, retryCount = 0) => {
   if (langCode === 'en') {
     clearGoogleTranslateCookie();
     location.reload();
@@ -147,17 +172,20 @@ const applyLanguage = async (langCode) => {
 
   try {
     await ensureGoogleTranslateLoaded();
-    const combo = document.querySelector('.goog-te-combo');
-    if (!combo) {
-      location.reload();
-      return;
-    }
+    const combo = await waitForTranslateCombo();
 
     if (combo.value !== langCode) {
       combo.value = langCode;
       combo.dispatchEvent(new Event('change'));
     }
   } catch (error) {
+    if (retryCount < GOOGLE_TRANSLATE_RETRY_ON_FAIL) {
+      setTimeout(() => {
+        applyLanguage(langCode, retryCount + 1);
+      }, 500 * (retryCount + 1));
+      return;
+    }
+
     location.reload();
   }
 };
@@ -184,6 +212,7 @@ document.querySelectorAll('.lang-chip').forEach((chip) => {
   const select = document.createElement('select');
   select.className = 'lang-chip lang-select';
   select.setAttribute('aria-label', 'Select site language');
+  select.setAttribute('data-language-select', 'true');
 
   languageOptions.forEach((optionData) => {
     const option = document.createElement('option');
@@ -198,6 +227,17 @@ document.querySelectorAll('.lang-chip').forEach((chip) => {
   select.addEventListener('change', (event) => {
     const nextLanguage = event.target.value;
     applyLanguage(nextLanguage);
+  });
+  select.addEventListener('input', (event) => {
+    const nextLanguage = event.target.value;
+    applyLanguage(nextLanguage);
+  });
+  ['touchstart', 'pointerdown', 'click'].forEach((eventName) => {
+    select.addEventListener(eventName, () => {
+      if (typeof select.showPicker === 'function') {
+        select.showPicker();
+      }
+    }, { passive: true });
   });
 
   chip.replaceWith(select);

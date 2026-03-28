@@ -106,7 +106,7 @@ small { color: var(--muted); }
 }
 .nav-links a:hover,
 .nav-links a.active { color: var(--text); }
-.nav-actions { display: flex; gap: 0.8rem; align-items: center; }
+.nav-actions { display: flex; gap: 0.8rem; align-items: center; position: relative; z-index: 35; }
 .menu-toggle {
   display: none;
   background: transparent;
@@ -518,6 +518,7 @@ input:focus, select:focus, textarea:focus {
   .nav-links {
     display: none;
     position: absolute;
+    z-index: 30;
     top: 82px;
     left: 1rem;
     right: 1rem;
@@ -714,6 +715,10 @@ input:focus, select:focus, textarea:focus {
   background-position: calc(100% - 16px) calc(50% - 3px), calc(100% - 11px) calc(50% - 3px);
   background-size: 5px 5px, 5px 5px;
   background-repeat:no-repeat;
+  pointer-events:auto;
+  touch-action:manipulation;
+  position: relative;
+  z-index: 40;
 }
 .lang-select option {
   color:#172029;
@@ -794,7 +799,12 @@ input:focus, select:focus, textarea:focus {
   .check-grid { grid-template-columns:1fr 1fr; }
 }
 @media (max-width: 760px) {
-  .lang-chip { display:none; }
+  .nav-actions .lang-select {
+    display:inline-flex;
+    min-width:108px;
+    padding:0.62rem 1.9rem 0.62rem 0.7rem;
+    font-size:0.86rem;
+  }
   .strategic-strip,
   .credibility-band,
   .form-grid,
